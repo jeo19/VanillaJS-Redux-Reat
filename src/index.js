@@ -3,18 +3,25 @@ const add = document.getElementById('add');
 const minus = document.getElementById('minus');
 const number = document.querySelector('span');
 const countModifier = (count = 0, action) => {
-    if (action.type == 'Add') {
-        count++;
-    } else if (action.type == 'Minus') {
-        count--;
+    if (action.type === 'ADD') {
+        return count + 1;
+    } else if (action.type === 'MINUS') {
+        return count - 1;
+    } else {
+        return count;
     }
-    return count;
 };
+
 const countStore = createStore(countModifier);
-countStore.dispatch({ type: 'Add' });
-countStore.dispatch({ type: 'Add' });
-countStore.dispatch({ type: 'Add' });
-countStore.dispatch({ type: 'Add' });
-countStore.dispatch({ type: 'Add' });
-countStore.dispatch({ type: 'Minus' });
-console.log(countStore.getState());
+const onChange = () => {
+    number.innerHTML = countStore.getState();
+};
+countStore.subscribe(onChange);
+const handleAdd = () => {
+    countStore.dispatch({ type: 'ADD' });
+};
+const handleMinus = () => {
+    countStore.dispatch({ type: 'MINUS' });
+};
+add.addEventListener('click', handleAdd);
+minus.addEventListener('click', handleMinus);
