@@ -5,10 +5,9 @@ const ul = document.querySelector('ul');
 const ADD_TODO = 'ADD_TODO';
 const DELETE_TODO = 'DELETE_TODO';
 const reducer = (state = [], action) => {
-    console.log(action);
     switch (action.type) {
         case ADD_TODO:
-            return;
+            return [...state, { text: action.text, id: Date.now() }];
         case DELETE_TODO:
             return;
         default:
@@ -17,11 +16,15 @@ const reducer = (state = [], action) => {
 };
 const store = createStore(reducer);
 
-const createTodo = (toDo) => {
+const createTodo = () => {
     const li = document.createElement('li');
-    li.innerText = toDo;
-    ul.appendChild(li);
+    console.log(typeof store.getState());
+    //li.innerText = toDo;
+    //ul.appendChild(li);
 };
+store.subscribe(() => {
+    console.log(store.getState());
+});
 const onSubmit = (e) => {
     e.preventDefault();
     const toDo = input.value;
