@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-function Home() {
+import { connect } from 'react-redux';
+function Home(props) {
+    console.log(props);
     const [text, setText] = useState('');
     const onChange = (e) => {
         setText(e.target.value);
@@ -19,4 +21,8 @@ function Home() {
         </>
     );
 }
-export default Home;
+function mapStateToProps(state, ownProps) {
+    return { state };
+}
+// To connection the Store and components, we are passing the Store's state to Home component's props with mapStateToProps
+export default connect(mapStateToProps)(Home);
