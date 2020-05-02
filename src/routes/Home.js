@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-function Home(props) {
-    console.log(props);
+import { actionCreators } from '../store';
+function Home({ toDos, addToDo }) {
+    //console.log(rest);
     const [text, setText] = useState('');
     const onChange = (e) => {
         setText(e.target.value);
@@ -9,6 +10,7 @@ function Home(props) {
     const onSubmit = (e) => {
         e.preventDefault();
         setText('');
+        addToDo(text);
     };
     return (
         <>
@@ -17,12 +19,17 @@ function Home(props) {
                 <input type="text" value={text} onChange={onChange}></input>
                 <button type="submit">Add</button>
             </form>
-            <ul></ul>
+            <ul>{JSON.stringify(toDos)}</ul>
         </>
     );
 }
-function mapStateToProps(state, ownProps) {
-    return { state };
+function mapStateToProps(state) {
+    return { toDos: state };
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        addToDo: (text) => dispatch(actionCreators.addToDo(text)),
+    };
 }
 // To connection the Store and components, we are passing the Store's state to Home component's props with mapStateToProps
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
