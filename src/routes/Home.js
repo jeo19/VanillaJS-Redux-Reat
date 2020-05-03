@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store';
 import ToDo from '../components/ToDo';
-function Home({ toDos, addToDo, deleteToDo }) {
+function Home({ toDos, addToDo }) {
     //console.log(addToDo);
     const [text, setText] = useState('');
     const onChange = (e) => {
@@ -13,9 +13,7 @@ function Home({ toDos, addToDo, deleteToDo }) {
         setText('');
         addToDo(text);
     };
-    const toDodelete = (id) => {
-        deleteToDo(id);
-    };
+
     return (
         <>
             <h1>To Do</h1>
@@ -25,7 +23,7 @@ function Home({ toDos, addToDo, deleteToDo }) {
             </form>
             <ul>
                 {toDos.map((toDo) => (
-                    <ToDo {...toDo} key={toDo.id} {...toDodelete} />
+                    <ToDo {...toDo} key={toDo.id} />
                 ))}
             </ul>
         </>
@@ -37,7 +35,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         addToDo: (text) => dispatch(actionCreators.addToDo(text)),
-        deleteToDo: (id) => dispatch(actionCreators.deleteToDo(id)),
     };
 }
 // To connection the Store and components, we are passing the Store's state to Home component's props with mapStateToProps
