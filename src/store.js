@@ -6,11 +6,11 @@ const addToDo = createAction(ADD);
 const deleteToDo = createAction(DELETE);
 
 const reducer = createReducer([], {
-    ADD: (state, action) => [
+    [addToDo]: (state, action) => [
         { text: action.payload, id: Date.now() },
         ...state,
     ],
-    DELETE: (state, action) =>
+    [deleteToDo.type]: (state, action) =>
         state.filter((todo) => todo.id !== action.payload),
 });
 
