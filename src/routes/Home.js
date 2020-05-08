@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store';
+import { add } from '../store';
 import ToDo from '../components/ToDo';
 function Home({ toDos, addToDo }) {
     //console.log(addToDo);
@@ -34,7 +34,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        addToDo: (text) => dispatch(actionCreators.addToDo(text)),
+        addToDo: (text) => dispatch(add(text)),
     };
 }
 // To connection the Store and components, we are passing the Store's state to Home component's props with mapStateToProps
