@@ -1,5 +1,4 @@
-import { createStore } from 'redux';
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import { createAction, createReducer, configureStore } from '@reduxjs/toolkit';
 const ADD = 'ADD';
 const DELETE = 'DELETE';
 const addToDo = createAction(ADD);
@@ -12,8 +11,9 @@ const reducer = createReducer([], {
     [deleteToDo.type]: (state, action) =>
         state.filter((todo) => todo.id !== action.payload),
 });
-
-const store = createStore(reducer);
+const store = configureStore({
+    reducer,
+});
 export const actionCreators = {
     addToDo,
     deleteToDo,
